@@ -1,0 +1,104 @@
+{
+  "components": {
+
+    "preprocessor": {
+      "input_topics": ["/raw_data"],
+      "output_topic": "/input/formatted"
+    },
+    "twitter_collector": {
+      "input_topics": ["/tw_collector"],
+      "output_topic": "/raw_data"
+    },
+
+    "filter_m3": {
+      "input_topics": ["/input/formatted"],
+      "output_topic": "/data/formatted",
+      "required_user": null,
+      "required_activity": ["text"]
+    },
+
+    "filter_db": {
+      "input_topics": ["/input/nocomp"],
+      "output_topic": "/data/formatted",
+      "required_user": null,
+      "required_activity": ["text"]
+    },
+
+    "mongo_insights": {
+      "input_topics": ["/data/+"]
+    },
+
+    "logger": {},
+
+    "mbti_classifier": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/mbti",
+      "required_activity": ["text"]
+    },
+
+    "ibm_ocean": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/ibm_ocean",
+      "required_activity": ["text"]
+    },
+
+    "ibm_vision": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/ibm_img_topics",
+      "required_activity": ["images"]
+    },
+    "img_torch": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/ibm_img_topics",
+      "required_activity": ["images"]
+    },
+
+    "ibm_nlu": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/ibm_nlu",
+      "required_activity": ["text"]
+    },
+    "tapoi_interests": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/ibm_nlu"
+    },
+
+    "age_classifier": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/age",
+      "required_user": ["photo"]
+    },
+    "age_torch": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/age"
+    },
+
+    "gender_classifier": {
+      "input_topics": ["/data/formatted"],
+      "output_topic": "/data/gender",
+      "required_user": ["name"]
+    },
+
+    "mimosa_clustering": {
+      "input_topics": ["/cluster/token"],
+      "output_topic": "/cluster/topersonas"
+    },
+    "sklearn_clustering_pca": {
+      "input_topics": ["/cluster/token"],
+      "output_topic": "/cluster/topersonas"
+    },
+    "mimosa_clustering_pca": {
+      "input_topics": ["/cluster/token"],
+      "output_topic": "/cluster/topersonas"
+    },
+    "personas_generator": {
+      "input_topics": ["/cluster/topersonas"],
+      "output_topic": "/cluster/no"
+    }
+
+  },
+
+  "broker_host": "localhost",
+
+  "log_topic": "/logs"
+}
